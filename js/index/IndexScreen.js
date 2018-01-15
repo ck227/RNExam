@@ -22,7 +22,7 @@ export default class IndexScreen extends Component<{}> {
         setTimeout(() => {
                 SplashScreen.hide()
             },
-            1000
+            500
         );
     }
 
