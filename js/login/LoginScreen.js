@@ -15,6 +15,9 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
+
+import ProgressDialog from '../base/ProgressDialog'
+
 export default class App extends Component<{}> {
     render() {
         return (
@@ -43,6 +46,8 @@ export default class App extends Component<{}> {
                         <Text style={styles.loginText}>登录</Text>
                     </TouchableOpacity>
                 </View>
+
+                <ProgressDialog visible={true} />
 
             </ImageBackground>
         );
@@ -110,6 +115,7 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: 'white'
-    }
+    },
+
 
 });
