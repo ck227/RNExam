@@ -13,12 +13,31 @@ import {
     Image,
     ImageBackground,
     TouchableOpacity,
+    Alert
 } from 'react-native';
 
+import {StackNavigator} from 'react-navigation';
+import {ProgressDialog} from 'react-native-simple-dialogs';
 
-import ProgressDialog from '../base/ProgressDialog'
+import {constants} from '../network/constants'
 
-export default class App extends Component<{}> {
+import MainScreen from '../main/main'
+
+class LoginScreen extends Component<{}> {
+
+    static navigationOptions = {
+        header: null,
+    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            account: '',
+            password: '',
+            loading: false
+        };
+    }
+
     render() {
         return (
 
@@ -31,28 +50,65 @@ export default class App extends Component<{}> {
                     <View style={styles.inputBox}>
                         <Image source={require('./img/login_phone.png')} style={styles.phone}/>
                         <TextInput style={styles.inputText} placeholder={'请输入手机号'}
-                                   underlineColorAndroid={'transparent'}/>
+                                   underlineColorAndroid={'transparent'}
+                                   onChangeText={(text) => this.setState({account: text})}/>
                         <Image source={require('./img/login_delete.png')} style={styles.delete}/>
                     </View>
 
                     <View style={styles.inputBox}>
                         <Image source={require('./img/login_pwd.png')} style={styles.phone}/>
                         <TextInput style={styles.inputText} placeholder={'请输入密码'}
-                                   underlineColorAndroid={'transparent'}/>
+                                   underlineColorAndroid={'transparent'}
+                                   onChangeText={(text) => this.setState({password: text})}/>
                         <Image source={require('./img/login_delete.png')} style={styles.delete}/>
                     </View>
 
-                    <TouchableOpacity style={styles.login}>
+                    <TouchableOpacity style={styles.login} onPress={this._loginFromApi.bind(this)}>
                         <Text style={styles.loginText}>登录</Text>
                     </TouchableOpacity>
                 </View>
 
-                <ProgressDialog visible={true} />
+                <ProgressDialog
+                    visible={this.state.loading}
+                    message="玩命加载中..."
+                    activityIndicatorSize="large"
+                />
 
             </ImageBackground>
         );
     }
+
+    async _loginFromApi() {
+
+        if (this.state.account == '') {
+            return Alert.alert('账号不能为空')
+        }
+        if (this.state.password == '') {
+            return Alert.alert('密码不能为空')
+        }
+        const {account, password} = this.state;
+        this.setState({
+            loading: true,
+        });
+        try {
+            let response = await fetch(`${constants.url}?service=login&loginName=${account}&passWord=${password}`);
+            let responseJson = await response.json()
+            if (responseJson.resultCode == 100) {
+                this.props.navigation.navigate('Main')
+            } else {
+                Alert.alert(responseJson.resultMsg)
+            }
+        } catch (error) {
+            Alert.alert('登录异常')
+        } finally {
+            this.setState({
+                loading: false
+            });
+        }
+    }
+
 }
+
 
 const styles = StyleSheet.create({
     backgroundImage: {
@@ -119,3 +175,10 @@ const styles = StyleSheet.create({
 
 
 });
+
+const Index = StackNavigator({
+    Login: {screen: LoginScreen},
+    Main: {screen: MainScreen},
+});
+
+export default Index
