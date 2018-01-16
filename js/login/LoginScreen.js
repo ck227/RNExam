@@ -49,7 +49,9 @@ class LoginScreen extends Component<{}> {
 
                     <View style={styles.inputBox}>
                         <Image source={require('./img/login_phone.png')} style={styles.phone}/>
-                        <TextInput style={styles.inputText} placeholder={'请输入手机号'}
+                        <TextInput style={styles.inputText}
+                                   placeholder={'请输入手机号'}
+                                   defaultValue={'185071042512'}
                                    underlineColorAndroid={'transparent'}
                                    onChangeText={(text) => this.setState({account: text})}/>
                         <Image source={require('./img/login_delete.png')} style={styles.delete}/>
@@ -58,6 +60,7 @@ class LoginScreen extends Component<{}> {
                     <View style={styles.inputBox}>
                         <Image source={require('./img/login_pwd.png')} style={styles.phone}/>
                         <TextInput style={styles.inputText} placeholder={'请输入密码'}
+                                   defaultValue={'1234567'}
                                    underlineColorAndroid={'transparent'}
                                    onChangeText={(text) => this.setState({password: text})}/>
                         <Image source={require('./img/login_delete.png')} style={styles.delete}/>

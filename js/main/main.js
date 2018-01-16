@@ -1,52 +1,56 @@
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    Image,
+    Colors,
 } from 'react-native';
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
+import {TabNavigator} from 'react-navigation';
+
+import HomeScreen from './home/HomeScreen'
+import PractiseScreen from './practise/PractiseScreen'
+import VideoScreen from './video/VideoScreen'
+import BBSScreen from './bbs/BBSScreen'
+import MyScreen from './my/MyScreen'
+
+const MyApp = TabNavigator({
+    Home: {
+        screen: HomeScreen,
+    },
+    Practise: {
+        screen: PractiseScreen,
+    },
+    Video: {
+        screen: VideoScreen,
+    },
+    BBS: {
+        screen: BBSScreen,
+    },
+    my: {
+        screen: MyScreen,
+    },
+}, {
+    tabBarPosition: 'bottom',
+    animationEnabled: true,
+    tabBarOptions: {
+        activeTintColor: '#03A7FF',
+        inactiveTintColor: '#666666',
+
+        showLabel: true,
+        showIcon: true,
+        style: {
+            backgroundColor: 'white',
+            height: 60
+        },
+
+        indicatorStyle: {
+            height: 0
+        }
+
+    },
 });
 
-export default class App extends Component<{}> {
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit App.js
-                </Text>
-                <Text style={styles.instructions}>
-                    {instructions}
-                </Text>
-            </View>
-        );
-    }
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
+export default MyApp
