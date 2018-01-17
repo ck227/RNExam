@@ -20,6 +20,7 @@ import {StackNavigator} from 'react-navigation';
 import {ProgressDialog} from 'react-native-simple-dialogs';
 
 import {constants} from '../network/constants'
+import ss from '../util/Storage' //不能省略，确保global的初始化
 
 import MainScreen from '../main/main'
 
@@ -32,8 +33,8 @@ class LoginScreen extends Component<{}> {
     constructor(props) {
         super(props);
         this.state = {
-            account: '',
-            password: '',
+            account: '18507104252',
+            password: '123456',
             loading: false
         };
     }
@@ -51,7 +52,7 @@ class LoginScreen extends Component<{}> {
                         <Image source={require('./img/login_phone.png')} style={styles.phone}/>
                         <TextInput style={styles.inputText}
                                    placeholder={'请输入手机号'}
-                                   defaultValue={'185071042512'}
+                                   defaultValue={'18507104252'}
                                    underlineColorAndroid={'transparent'}
                                    onChangeText={(text) => this.setState({account: text})}/>
                         <Image source={require('./img/login_delete.png')} style={styles.delete}/>
@@ -60,7 +61,7 @@ class LoginScreen extends Component<{}> {
                     <View style={styles.inputBox}>
                         <Image source={require('./img/login_pwd.png')} style={styles.phone}/>
                         <TextInput style={styles.inputText} placeholder={'请输入密码'}
-                                   defaultValue={'1234567'}
+                                   defaultValue={'123456'}
                                    underlineColorAndroid={'transparent'}
                                    onChangeText={(text) => this.setState({password: text})}/>
                         <Image source={require('./img/login_delete.png')} style={styles.delete}/>
@@ -97,12 +98,22 @@ class LoginScreen extends Component<{}> {
             let response = await fetch(`${constants.url}?service=login&loginName=${account}&passWord=${password}`);
             let responseJson = await response.json()
             if (responseJson.resultCode == 100) {
+                //保存获取到的id和token
+                storage.save({
+                    key: 'loginState',  // 注意:请不要在key中使用_下划线符号!
+                    data: {
+                        userId: responseJson.resultData.userId,
+                        userToken: responseJson.resultData.userToken,
+                    },
+                    expires: null
+                });
                 this.props.navigation.navigate('Main')
             } else {
                 Alert.alert(responseJson.resultMsg)
             }
         } catch (error) {
             Alert.alert('登录异常')
+            console.error('' + error)
         } finally {
             this.setState({
                 loading: false
