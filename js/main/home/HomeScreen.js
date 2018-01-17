@@ -108,6 +108,45 @@ export default class App extends Component<{}> {
         );
     };
 
+    renderHeader = () => {
+        return (
+            <Swiper style={styles.wrapper} height={200} horizontal={true}
+                    onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
+                    dot={<View style={{
+                        backgroundColor: 'rgba(0,0,0,.2)',
+                        width: 5,
+                        height: 5,
+                        borderRadius: 4,
+                        marginLeft: 3,
+                        marginRight: 3,
+                        marginTop: 3,
+                        marginBottom: 3
+                    }}/>}
+                    activeDot={<View style={{
+                        backgroundColor: '#03A7FF',
+                        width: 8,
+                        height: 8,
+                        borderRadius: 4,
+                        marginLeft: 3,
+                        marginRight: 3,
+                        marginTop: 3,
+                        marginBottom: 3
+                    }}/>}
+                    paginationStyle={{
+                        bottom: 5, left: null, right: 15
+                    }} loop autoplay>
+                {this.state.banners.map((banner) => {
+                    return <View style={styles.slide}
+                                 title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
+                        <Image resizeMode='stretch' style={styles.image}
+                               source={{uri: constants.PicUrl + banner.thumbPath}}/>
+                    </View>
+                })}
+
+            </Swiper>
+        );
+    };
+
     renderFooter = () => {
         if (!this.state.loading) return null;
         return (
@@ -122,48 +161,9 @@ export default class App extends Component<{}> {
         );
     };
 
-
     render() {
         return (
             <View style={styles.container}>
-
-                <View style={{height: 200}}>
-
-                    <Swiper style={styles.wrapper} height={200} horizontal={true}
-                            onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
-                            dot={<View style={{
-                                backgroundColor: 'rgba(0,0,0,.2)',
-                                width: 5,
-                                height: 5,
-                                borderRadius: 4,
-                                marginLeft: 3,
-                                marginRight: 3,
-                                marginTop: 3,
-                                marginBottom: 3
-                            }}/>}
-                            activeDot={<View style={{
-                                backgroundColor: '#03A7FF',
-                                width: 8,
-                                height: 8,
-                                borderRadius: 4,
-                                marginLeft: 3,
-                                marginRight: 3,
-                                marginTop: 3,
-                                marginBottom: 3
-                            }}/>}
-                            paginationStyle={{
-                                bottom: 5, left: null, right: 15
-                            }} loop autoplay>
-                        {this.state.banners.map((banner) => {
-                            return <View style={styles.slide}
-                                         title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
-                                <Image resizeMode='stretch' style={styles.image}
-                                       source={{uri: constants.PicUrl + banner.thumbPath}}/>
-                            </View>
-                        })}
-
-                    </Swiper>
-                </View>
 
                 <FlatList
                     data={this.state.news}
@@ -171,7 +171,7 @@ export default class App extends Component<{}> {
 
                         <TouchableOpacity>
                             <View style={styles.item}>
-                                
+
                                 <View style={styles.container2}>
                                     <Image
                                         source={{uri: constants.PicUrl + item.thumbPath}}
@@ -202,6 +202,7 @@ export default class App extends Component<{}> {
                         </View>
                     }
                     keyExtractor={(item, index) => index}
+                    ListHeaderComponent={this.renderHeader}
                     ListFooterComponent={this.renderFooter}
                     onRefresh={this.handleRefresh}
                     refreshing={this.state.refreshing}
