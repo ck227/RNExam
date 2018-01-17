@@ -113,7 +113,6 @@ class LoginScreen extends Component<{}> {
             }
         } catch (error) {
             Alert.alert('登录异常')
-            console.error('' + error)
         } finally {
             this.setState({
                 loading: false

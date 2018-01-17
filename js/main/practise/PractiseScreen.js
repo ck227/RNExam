@@ -1,5 +1,4 @@
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     Platform,
     StyleSheet,
@@ -8,12 +7,9 @@ import {
     Image,
 } from 'react-native';
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import {TabNavigator} from 'react-navigation';
+
+import TypeListScreen from './TypeListScreen.js'
 
 export default class App extends Component<{}> {
 
@@ -29,7 +25,7 @@ export default class App extends Component<{}> {
             color: 'white'
         },
 
-        tabBarIcon: ({ tintColor }) => (
+        tabBarIcon: ({tintColor}) => (
             <Image
                 source={require('./img/practise.png')}
                 style={[styles.icon, {tintColor: tintColor}]}
@@ -39,11 +35,7 @@ export default class App extends Component<{}> {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    这里显示练习
-                </Text>
-            </View>
+            <MyApp/>
         );
     }
 }
@@ -68,5 +60,36 @@ const styles = StyleSheet.create({
     icon: {
         height: 20,
         width: 20,
+    },
+});
+
+
+const MyApp = TabNavigator({
+    国家电网: {
+        screen: TypeListScreen,
+    },
+    南方电网: {
+        screen: TypeListScreen,
+    },
+}, {
+    tabBarPosition: 'top',
+    animationEnabled: true,
+    swipeEnabled: true,
+    tabBarOptions: {
+        activeTintColor: '#03A7FF',
+        inactiveTintColor: '#666666',
+
+        showLabel: true,
+        showIcon: false,
+        style: {
+            backgroundColor: 'white',
+            height: 50
+        },
+
+        indicatorStyle: {
+            height: 3,
+            backgroundColor : '#03A7FF'
+        }
+
     },
 });
