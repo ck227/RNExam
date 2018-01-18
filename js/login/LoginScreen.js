@@ -112,7 +112,8 @@ class LoginScreen extends Component<{}> {
                 Alert.alert(responseJson.resultMsg)
             }
         } catch (error) {
-            Alert.alert('登录异常')
+            // console.error(error)
+            Alert.alert('登录异常'+error)
         } finally {
             this.setState({
                 loading: false

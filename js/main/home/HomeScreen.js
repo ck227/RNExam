@@ -8,10 +8,12 @@ import {
     ActivityIndicator,
     FlatList,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 import {constants} from "../../network/constants";
+import {getCache} from "../../util/UtilCache";
 
 const {width} = Dimensions.get('window')
 
@@ -49,12 +51,21 @@ export default class App extends Component<{}> {
     };
 
     componentDidMount() {
-        this.getBanner();
-        this.getNews();
+        global.storage.load({
+            key: 'loginState',
+        }).then(ret => {
+            let [x,y] = [ret.userId, ret.userToken]
+            // return cccc
+            this.getBanner(x,y)
+        }).catch(err => {
+
+        })
+        this.getNews()
     }
 
-    getBanner = () => {
-        var url = `${constants.url}?service=advertised.list&userId=1467&userToken=wB2wOZf6pnCzxMfInWiy`
+
+    getBanner = (x,y) => {
+        var url = `${constants.url}?service=advertised.list&userId=${x}&userToken=${y}`
         fetch(url)
             .then(res => res.json())
             .then(res => {
@@ -68,7 +79,7 @@ export default class App extends Component<{}> {
     }
 
     getNews = () => {
-        var url = `${constants.url}?service=news.list&userId=1467&pageNo=${this.state.page}&parent=24`
+        var url = `${constants.url}?service=news.list&userId=1467&pageNo=${this.state.page}&parent=25`
         this.setState({loading: true});
         fetch(url)
             .then(res => res.json())
