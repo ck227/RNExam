@@ -13,7 +13,6 @@ import {
 
 import Swiper from 'react-native-swiper';
 import {constants} from "../../network/constants";
-import {getCache} from "../../util/UtilCache";
 
 const {width} = Dimensions.get('window')
 
@@ -54,18 +53,16 @@ export default class App extends Component<{}> {
         global.storage.load({
             key: 'loginState',
         }).then(ret => {
-            let [x,y] = [ret.userId, ret.userToken]
-            // return cccc
-            this.getBanner(x,y)
+            let [x, y] = [ret.userId, ret.userToken]
+            this.getBanner(x, y)
         }).catch(err => {
 
         })
         this.getNews()
     }
 
-
-    getBanner = (x,y) => {
-        var url = `${constants.url}?service=advertised.list&userId=${x}&userToken=${y}`
+    getBanner = (userId, uerToken) => {
+        var url = `${constants.url}?service=advertised.list&userId=${userId}&userToken=${uerToken}`
         fetch(url)
             .then(res => res.json())
             .then(res => {
@@ -93,7 +90,6 @@ export default class App extends Component<{}> {
             .catch(error => {
                 this.setState({error, loading: false});
             });
-
     }
 
     handleRefresh = () => {
@@ -288,14 +284,14 @@ const styles = StyleSheet.create({
         marginLeft: 12
     },
     title: {
-        color: '#000000',
-        fontSize: 14,
+        color: '#999999',
+        fontSize: 12,
         marginBottom: 8,
         textAlign: 'left',
     },
     content: {
-        color: '#999999',
-        fontSize: 12,
+        color: '#666666',
+        fontSize: 14,
         textAlign: 'left'
     },
     thumbnail: {
