@@ -1,3 +1,5 @@
+"use strict";
+
 import React, {Component} from 'react';
 import {
     Platform,
@@ -5,16 +7,54 @@ import {
     Text,
     View,
     Image,
+    SectionList,
+    Alert,
 } from 'react-native';
+import {constants} from "../../network/constants";
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+
+// http://116.62.13.18:8399/GridIntf/gateway.do?service=forum.category.list&userId=1467&userToken=GAy26LBw2VxXpbrHlj6M
 
 export default class App extends Component<{}> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            userId: '',
+            userToken: '',
+        };
+    }
+
+    componentDidMount() {
+        global.storage.load({
+            key: 'loginState',
+        }).then(ret => {
+            let [x, y] = [ret.userId, ret.userToken]
+            this.setState({
+                userId: x,
+                userToken: y,
+            });
+            this.getData()
+        }).catch(err => {
+
+        })
+    }
+
+    getData = () => {
+        let url = `${constants.url}?service=forum.category.list&userId=${this.state.userId}&userToken=${this.state.userToken}`
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    data: res.resultData,
+                });
+
+            })
+            .catch(error => {
+
+            });
+    }
 
     static navigationOptions = {
         headerTitle: '论坛',
@@ -39,33 +79,87 @@ export default class App extends Component<{}> {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    这里显示论坛
-                </Text>
+                <SectionList
+                    renderSectionHeader={({section}) =>
+                        <View style={styles.parentView}>
+                            <Text style={styles.parentText}>{section.title}
+                            </Text>
+                        </View>
+                    }
+                    renderItem={({item}) =>
+                        <View style={styles.childView}>
+                            <Image
+                                source={require('./img/ic_bbs_default.png')}
+                                style={styles.thumbnail}/>
+                            <Text>{item.cateName}
+                            </Text>
+                        </View>
+                    }
+
+                    ItemSeparatorComponent={this._separator}
+                    sections={this.selectionList()}
+                />
             </View>
         );
     }
+
+    selectionList = () => {
+        let datas = []
+        for (let b of this.state.data) {
+            let itemdata = {data: b.childs, title: b.cateName}
+            datas.push(itemdata)
+        }
+        return datas
+    }
+
+    _separatorParent = () => {
+        return <View style={{height:10,backgroundColor:'#CED0CE'}}/>;
+    }
+    _separator = () => {
+        return <View style={{height:1,backgroundColor:'#CED0CE'}}/>;
+    }
+
+    _renderItemComponent = ({item}) => <ItemComponent item={item} onPress={this._pressItem}/>;
+
+    _pressItem = () => {
+
+    };
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
     },
     welcome: {
         fontSize: 20,
         textAlign: 'center',
         margin: 10,
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
     icon: {
         height: 20,
         width: 20,
     },
+    parentView: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        padding: 16,
+        backgroundColor:'white'
+    },
+    parentText: {
+        fontSize: 16,
+        color: '#03A7FF'
+    },
+    thumbnail: {
+        height: 16,
+        width: 20,
+        marginLeft: 24,
+        marginRight: 8
+    },
+    childView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor:'white',
+        padding:8
+    }
 });
+
