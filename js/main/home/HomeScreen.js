@@ -143,8 +143,10 @@ export default class App extends Component<{}> {
                         bottom: 5, left: null, right: 15
                     }} loop autoplay>
                 {this.state.banners.map((banner) => {
-                    return <View style={styles.slide}
-                                 title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
+                    return <View
+                        key={_generateUUID()}
+                        style={styles.slide}
+                        title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
                         <Image resizeMode='stretch' style={styles.image}
                                source={{uri: constants.PicUrl + banner.thumbPath}}/>
                     </View>
@@ -303,3 +305,13 @@ const styles = StyleSheet.create({
     },
 
 });
+
+function _generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+};

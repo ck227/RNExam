@@ -14,10 +14,9 @@ import {
     View,
     FlatList,
     TouchableOpacity,
+    Image,
 } from 'react-native';
 import {constants} from "../../network/constants";
-
-// http://116.62.13.18:8399/GridIntf/gateway.do?service=question.major.list&userId=1467&userToken=VLlWWtIVDVzv9CWXBJ6k&examType=1&unityType=1
 
 export default class App extends Component<{}> {
 
@@ -74,8 +73,6 @@ export default class App extends Component<{}> {
 
     render() {
         return (
-
-
             <FlatList
                 style={styles.container}
                 data={this.state.data}
@@ -84,6 +81,19 @@ export default class App extends Component<{}> {
                     <TouchableOpacity>
                         <View style={styles.container2}>
                             <Text style={styles.title}>{item.majorName}</Text>
+
+                            <View style={styles.iconParent}>
+                                {
+                                    item.isBuy || item.isFree ? <Image
+                                        source={require('./img/ic_bought.png')}
+                                        style={styles.icon}
+                                    /> : <Image
+                                        source={require('./img/ic_unbought.png')}
+                                        style={styles.icon}
+                                    />
+                                }
+                            </View>
+
                         </View>
                     </TouchableOpacity>
                 )}
@@ -123,16 +133,23 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center',
         backgroundColor: '#FFFFFF',
-        paddingLeft: 12,
-        paddingRight: 12,
-        paddingTop: 12,
-        paddingBottom: 12
     },
     title: {
         color: '#666666',
         fontSize: 14,
         textAlign: 'left',
+        marginTop: 16,
+        marginBottom: 16,
+        marginLeft: 14
     },
+    iconParent: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    icon: {
+        height: 40,
+        width: 40
+    }
 });
