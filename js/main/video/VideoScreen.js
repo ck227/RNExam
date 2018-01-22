@@ -8,6 +8,9 @@ import {
     Image,
 } from 'react-native';
 
+import {TabNavigator} from 'react-navigation';
+import TypeListScreen from './TypeListScreen.js'
+
 export default class App extends Component<{}> {
 
     static navigationOptions = {
@@ -31,13 +34,8 @@ export default class App extends Component<{}> {
     };
 
     render() {
-        let pic = {
-            uri: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1516589248&di=271a7797af8631a660c95fd387c9fea1&src=http://www.sxbbs.com/data/attachment/forum/201712/06/162335rgfww48pmaf0fww2.jpg'
-        };
         return (
-            <View style={styles.container}>
-                <Image source={pic} style={{width: 193, height: 110}} />
-            </View>
+            <MyApp/>
         );
     }
 }
@@ -49,18 +47,45 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
     icon: {
         height: 20,
         width: 20,
+    },
+});
+const TypeListScreen1 = () => (
+    <TypeListScreen type='1'/>
+);
+const TypeListScreen2 = () => (
+    <TypeListScreen type='2'/>
+);
+
+
+const MyApp = TabNavigator({
+    国家电网: {
+        screen: TypeListScreen1,
+    },
+    南方电网: {
+        screen: TypeListScreen2,
+    },
+}, {
+    tabBarPosition: 'top',
+    animationEnabled: true,
+    swipeEnabled: true,
+    tabBarOptions: {
+        activeTintColor: '#03A7FF',
+        inactiveTintColor: '#666666',
+
+        showLabel: true,
+        showIcon: false,
+        style: {
+            backgroundColor: 'white',
+            height: 50
+        },
+
+        indicatorStyle: {
+            height: 3,
+            backgroundColor : '#03A7FF'
+        }
+
     },
 });
