@@ -46,7 +46,7 @@ export default class App extends Component<{}> {
     }
 
     getData = () => {
-        let url = `${constants.url}?service=question.major.list&userId=${this.state.userId}&userToken=${this.state.userToken}&examType=1&unityType=1`
+        let url = `${constants.url}?service=question.major.list&userId=${this.state.userId}&userToken=${this.state.userToken}&examType=1&unityType=${this.props.type}`
         fetch(url)
             .then(res => res.json())
             .then(res => {

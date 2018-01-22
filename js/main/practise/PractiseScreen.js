@@ -63,13 +63,20 @@ const styles = StyleSheet.create({
     },
 });
 
+const TypeListScreen1 = () => (
+    <TypeListScreen type='1'/>
+);
+const TypeListScreen2 = () => (
+    <TypeListScreen type='2'/>
+);
+
 
 const MyApp = TabNavigator({
     国家电网: {
-        screen: TypeListScreen,
+        screen: TypeListScreen1,
     },
     南方电网: {
-        screen: TypeListScreen,
+        screen: TypeListScreen2,
     },
 }, {
     tabBarPosition: 'top',

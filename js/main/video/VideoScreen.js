@@ -8,13 +8,6 @@ import {
     Image,
 } from 'react-native';
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
 export default class App extends Component<{}> {
 
     static navigationOptions = {
@@ -38,11 +31,12 @@ export default class App extends Component<{}> {
     };
 
     render() {
+        let pic = {
+            uri: 'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1516589248&di=271a7797af8631a660c95fd387c9fea1&src=http://www.sxbbs.com/data/attachment/forum/201712/06/162335rgfww48pmaf0fww2.jpg'
+        };
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    这里显示视频
-                </Text>
+                <Image source={pic} style={{width: 193, height: 110}} />
             </View>
         );
     }
