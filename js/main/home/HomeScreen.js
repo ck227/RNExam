@@ -11,12 +11,14 @@ import {
     Alert,
 } from 'react-native';
 
+import {StackNavigator} from 'react-navigation';
+import HomeDetailScreen from './HomeDetailScreen'
 import Swiper from 'react-native-swiper';
 import {constants} from "../../network/constants";
 
 const {width} = Dimensions.get('window')
 
-export default class App extends Component<{}> {
+export default class HomeScreen extends Component<{}> {
 
     constructor(props) {
         super(props);
@@ -170,6 +172,16 @@ export default class App extends Component<{}> {
         );
     };
 
+    _itemClick = (item, index) => {
+        this.props.navigation.navigate('HomeDetailScreen', {
+            // type: item.EVENT_TYPE,
+            // title: item.EVENT_TITLE,
+            // desc: item.EVENT_DESC,
+            // images: item.EVENT_IMG,
+            // video: item.EVENT_VIDEO
+        })
+    };
+
     render() {
         return (
             <View style={styles.container}>
@@ -178,7 +190,7 @@ export default class App extends Component<{}> {
                     data={this.state.news}
                     renderItem={({item, index}) => (
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={this._itemClick.bind(this, item, index)}>
                             <View style={styles.item}>
 
                                 <View style={styles.container2}>

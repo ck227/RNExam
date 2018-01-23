@@ -44,6 +44,8 @@ export default class App extends Component<{}> {
         return (
             <View style={styles.container}>
                 <View style={styles.whiteBlock}>
+
+
                     <View style={styles.roundBlock}>
                         <Image
                             source={require('./img/ic_avatar.png')}
@@ -139,8 +141,6 @@ export default class App extends Component<{}> {
                     <View style={{height:0.5,backgroundColor:'#CED0CE'}}/>
 
                 </View>
-
-
 
             </View>
         );
