@@ -33,7 +33,7 @@ export default class App extends Component<{}> {
 
         tabBarIcon: ({tintColor}) => (
             <Image
-                source={require('./img/my.png')}
+                source={require('../img/my.png')}
                 style={[styles.icon, {tintColor: tintColor}]}
             />
         ),

@@ -14,23 +14,7 @@ import TypeListScreen from './TypeListScreen.js'
 export default class App extends Component<{}> {
 
     static navigationOptions = {
-        headerTitle: '视频',
-        tabBarLabel: '视频',
 
-        headerLeft: null,//去左边返回键
-        headerStyle: {
-            backgroundColor: '#03A7FF',
-        },
-        headerTitleStyle: {
-            color: 'white'
-        },
-
-        tabBarIcon: ({ tintColor }) => (
-            <Image
-                source={require('./img/video.png')}
-                style={[styles.icon, {tintColor: tintColor}]}
-            />
-        ),
     };
 
     render() {
@@ -40,18 +24,6 @@ export default class App extends Component<{}> {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    icon: {
-        height: 20,
-        width: 20,
-    },
-});
 const TypeListScreen1 = () => (
     <TypeListScreen type='1'/>
 );

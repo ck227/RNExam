@@ -56,26 +56,6 @@ export default class App extends Component<{}> {
             });
     }
 
-    static navigationOptions = {
-        headerTitle: '论坛',
-        tabBarLabel: '论坛',
-
-        headerLeft: null,//去左边返回键
-        headerStyle: {
-            backgroundColor: '#03A7FF',
-        },
-        headerTitleStyle: {
-            color: 'white'
-        },
-
-        tabBarIcon: ({tintColor}) => (
-            <Image
-                source={require('./img/bbs.png')}
-                style={[styles.icon, {tintColor: tintColor}]}
-            />
-        ),
-    };
-
     render() {
         return (
             <View style={styles.container}>

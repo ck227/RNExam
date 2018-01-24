@@ -19,18 +19,114 @@ import MyScreen from './my/MyScreen'
 const MyApp = TabNavigator({
     Home: {
         screen: HomeScreen,
+        navigationOptions: {
+            headerTitle: '首页',
+            tabBarLabel: '首页',
+            headerLeft: null,//去左边返回键
+            headerStyle: {
+                backgroundColor: '#03A7FF',
+            },
+            headerTitleStyle: {
+                color: 'white'
+            },
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={require('./img/home.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
+
     },
     Practise: {
         screen: PractiseScreen,
+        navigationOptions: {
+            headerTitle: '练习',
+            tabBarLabel: '练习',
+
+            headerLeft: null,//去左边返回键
+            headerStyle: {
+                backgroundColor: '#03A7FF',
+            },
+            headerTitleStyle: {
+                color: 'white'
+            },
+
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={require('./img/practise.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
     },
     Video: {
         screen: VideoScreen,
+        navigationOptions: {
+            headerTitle: '视频',
+            tabBarLabel: '视频',
+
+            headerLeft: null,//去左边返回键
+            headerStyle: {
+                backgroundColor: '#03A7FF',
+            },
+            headerTitleStyle: {
+                color: 'white'
+            },
+
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={require('./img/video.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
     },
     BBS: {
         screen: BBSScreen,
+        navigationOptions: {
+            headerTitle: '论坛',
+            tabBarLabel: '论坛',
+
+            headerLeft: null,//去左边返回键
+            headerStyle: {
+                backgroundColor: '#03A7FF',
+            },
+            headerTitleStyle: {
+                color: 'white'
+            },
+
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={require('./img/bbs.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
     },
     my: {
         screen: MyScreen,
+        navigationOptions: {
+            headerTitle: '我的',
+            tabBarLabel: '我的',
+
+            headerLeft: null,//去左边返回键
+
+            headerStyle: {
+                backgroundColor: '#03A7FF',
+            },
+            headerTitleStyle: {
+                color: 'white'
+            },
+
+
+            tabBarIcon: ({tintColor}) => (
+                <Image
+                    source={require('./img/my.png')}
+                    style={[styles.icon, {tintColor: tintColor}]}
+                />
+            ),
+        },
     },
 }, {
     tabBarPosition: 'bottom',
@@ -51,6 +147,13 @@ const MyApp = TabNavigator({
             height: 0
         }
 
+    },
+});
+
+const styles = StyleSheet.create({
+    icon: {
+        height: 20,
+        width: 20,
     },
 });
 

@@ -31,26 +31,6 @@ export default class HomeScreen extends Component<{}> {
         };
     }
 
-    static navigationOptions = {
-        headerTitle: '首页',
-        tabBarLabel: '首页',
-
-        headerLeft: null,//去左边返回键
-        headerStyle: {
-            backgroundColor: '#03A7FF',
-        },
-        headerTitleStyle: {
-            color: 'white'
-        },
-
-        tabBarIcon: ({tintColor}) => (
-            <Image
-                source={require('./img/home.png')}
-                style={[styles.icon, {tintColor: tintColor}]}
-            />
-        ),
-    };
-
     componentDidMount() {
         global.storage.load({
             key: 'loginState',
