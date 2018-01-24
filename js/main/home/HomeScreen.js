@@ -11,8 +11,8 @@ import {
     Alert,
 } from 'react-native';
 
-import {StackNavigator} from 'react-navigation';
-import HomeDetailScreen from './HomeDetailScreen'
+// import {StackNavigator} from 'react-navigation';
+// import HomeDetailScreen from './HomeDetailScreen'
 import Swiper from 'react-native-swiper';
 import {constants} from "../../network/constants";
 

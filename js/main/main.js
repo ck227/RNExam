@@ -8,7 +8,7 @@ import {
     Colors,
 } from 'react-native';
 
-import {TabNavigator} from 'react-navigation';
+import {StackNavigator, TabNavigator} from 'react-navigation';
 
 import HomeScreen from './home/HomeScreen'
 import PractiseScreen from './practise/PractiseScreen'
@@ -16,11 +16,13 @@ import VideoScreen from './video/VideoScreen'
 import BBSScreen from './bbs/BBSScreen'
 import MyScreen from './my/MyScreen'
 
-const MyApp = TabNavigator({
+import HomeDetailScreen from './home/HomeDetailScreen'
+
+const TabNavigator1 = TabNavigator({
     Home: {
         screen: HomeScreen,
         navigationOptions: {
-            headerTitle: '首页',
+            headerTitle: '首页66',
             tabBarLabel: '首页',
             headerLeft: null,//去左边返回键
             headerStyle: {
@@ -41,6 +43,7 @@ const MyApp = TabNavigator({
     Practise: {
         screen: PractiseScreen,
         navigationOptions: {
+            // header: ,
             headerTitle: '练习',
             tabBarLabel: '练习',
 
@@ -146,8 +149,7 @@ const MyApp = TabNavigator({
         indicatorStyle: {
             height: 0
         }
-
-    },
+    }
 });
 
 const styles = StyleSheet.create({
@@ -157,4 +159,22 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MyApp
+
+const App = StackNavigator({
+    MainNavigator: {
+        screen: TabNavigator1,
+
+        navigationOptions: {
+            headerTitle: '这个header显示了两个是为啥？？',
+        }
+    },
+    HomeDetailScreen: {
+        screen: HomeDetailScreen,
+        navigationOptions: {
+            headerTitle: '详情',
+        }
+    },
+
+})
+
+export default App
