@@ -154,11 +154,7 @@ export default class HomeScreen extends Component<{}> {
 
     _itemClick = (item, index) => {
         this.props.navigation.navigate('HomeDetailScreen', {
-            // type: item.EVENT_TYPE,
-            // title: item.EVENT_TITLE,
-            // desc: item.EVENT_DESC,
-            // images: item.EVENT_IMG,
-            // video: item.EVENT_VIDEO
+            newsId: item.newsId,
         })
     };
 

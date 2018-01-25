@@ -22,7 +22,7 @@ const TabNavigator1 = TabNavigator({
     Home: {
         screen: HomeScreen,
         navigationOptions: {
-            headerTitle: '首页66',
+            headerTitle: '首页',
             tabBarLabel: '首页',
             headerLeft: null,//去左边返回键
             headerStyle: {
@@ -165,7 +165,7 @@ const App = StackNavigator({
         screen: TabNavigator1,
 
         navigationOptions: {
-            headerTitle: '这个header显示了两个是为啥？？',
+            // headerTitle: '这个header显示了两个是为啥？？',
         }
     },
     HomeDetailScreen: {
@@ -174,6 +174,12 @@ const App = StackNavigator({
             headerTitle: '详情',
         }
     },
+
+}, {
+    navigationOptions:{
+
+    },
+    headerMode: 'none',
 
 })
 
