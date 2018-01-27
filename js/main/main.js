@@ -17,7 +17,7 @@ import BBSScreen from './bbs/BBSScreen'
 import MyScreen from './my/MyScreen'
 
 import HomeDetailScreen from './home/HomeDetailScreen'
-import VideoNavigator from './video/TypeVideoScreen'
+import TypeVideoScreen from './video/TypeVideoScreen'
 
 const TabNavigator1 = TabNavigator({
     Home: {
@@ -171,11 +171,11 @@ const App = StackNavigator({
             headerTitle: '详情',
         }
     },
-    VideoNavigator: {
-        screen: VideoNavigator,
-        // navigationOptions: {
-        //     headerTitle: '详情',
-        // }
+    TypeVideoScreen: {
+        screen: TypeVideoScreen,
+        navigationOptions: {
+            headerTitle: '55555',
+        }
     },
 
 }, {
@@ -183,7 +183,6 @@ const App = StackNavigator({
 
     },
     // headerMode: 'none',
-
 })
 
 export default App

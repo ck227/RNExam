@@ -16,9 +16,12 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native';
-import {constants} from "../../network/constants";
 
-import TypeVideoScreen from './TypeVideoScreen'
+import { NavigationActions } from 'react-navigation' //第三方的
+
+import {constants} from "../../network/constants"; //常量
+
+import TypeVideoScreen from './TypeVideoScreen' //界面
 
 export default class App extends Component<{}> {
 
@@ -74,9 +77,7 @@ export default class App extends Component<{}> {
     };
 
     _itemClick = (item, index) => {
-        this.props.navigation.navigate('TypeVideoScreen', {
-            // newsId: item.newsId,
-        })
+        this.props.rootNavigation.navigation.navigate('TypeVideoScreen')
     };
 
     render() {
@@ -116,6 +117,18 @@ export default class App extends Component<{}> {
         );
     }
 }
+
+
+const navigateAction = NavigationActions.navigate({
+
+    routeName: 'Profile',
+
+    params: {},
+
+    action: NavigationActions.navigate({ routeName: 'TypeVideoScreen'})
+})
+
+
 
 const styles = StyleSheet.create({
     container: {

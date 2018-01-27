@@ -19,7 +19,7 @@ export default class App extends Component<{}> {
 
     render() {
         return (
-            <MyApp/>
+            <MyApp screenProps={{ rootNavigation: this.props.navigation }} />
         );
     }
 }
