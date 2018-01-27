@@ -24,7 +24,7 @@ import ss from '../util/Storage' //不能省略，确保global的初始化
 
 import MainScreen from '../main/main'
 
-class LoginScreen extends Component<{}> {
+export default class LoginScreen extends Component<{}> {
 
     static navigationOptions = {
         header: null,
@@ -35,50 +35,53 @@ class LoginScreen extends Component<{}> {
         this.state = {
             account: '18507104252',
             password: '123456',
-            loading: false
+            loading: false,
+            loggedIn: false
         };
     }
 
     render() {
         return (
+            this.state.loggedIn ? <MainScreen/> :
 
-            <ImageBackground source={require('./img/login_bg.png')} style={styles.backgroundImage}>
+                <ImageBackground source={require('./img/login_bg.png')} style={styles.backgroundImage}>
 
-                <View style={styles.box}>
+                    <View style={styles.box}>
 
-                    <Image source={require('./img/login_logo.png')} style={styles.logo}/>
+                        <Image source={require('./img/login_logo.png')} style={styles.logo}/>
 
-                    <View style={styles.inputBox}>
-                        <Image source={require('./img/login_phone.png')} style={styles.phone}/>
-                        <TextInput style={styles.inputText}
-                                   placeholder={'请输入手机号'}
-                                   defaultValue={'18507104252'}
-                                   underlineColorAndroid={'transparent'}
-                                   onChangeText={(text) => this.setState({account: text})}/>
-                        <Image source={require('./img/login_delete.png')} style={styles.delete}/>
+                        <View style={styles.inputBox}>
+                            <Image source={require('./img/login_phone.png')} style={styles.phone}/>
+                            <TextInput style={styles.inputText}
+                                       placeholder={'请输入手机号'}
+                                       defaultValue={'18507104252'}
+                                       underlineColorAndroid={'transparent'}
+                                       onChangeText={(text) => this.setState({account: text})}/>
+                            <Image source={require('./img/login_delete.png')} style={styles.delete}/>
+                        </View>
+
+                        <View style={styles.inputBox}>
+                            <Image source={require('./img/login_pwd.png')} style={styles.phone}/>
+                            <TextInput style={styles.inputText} placeholder={'请输入密码'}
+                                       defaultValue={'123456'}
+                                       underlineColorAndroid={'transparent'}
+                                       onChangeText={(text) => this.setState({password: text})}/>
+                            <Image source={require('./img/login_delete.png')} style={styles.delete}/>
+                        </View>
+
+                        <TouchableOpacity style={styles.login} onPress={this._loginFromApi.bind(this)}>
+                            <Text style={styles.loginText}>登录</Text>
+                        </TouchableOpacity>
                     </View>
 
-                    <View style={styles.inputBox}>
-                        <Image source={require('./img/login_pwd.png')} style={styles.phone}/>
-                        <TextInput style={styles.inputText} placeholder={'请输入密码'}
-                                   defaultValue={'123456'}
-                                   underlineColorAndroid={'transparent'}
-                                   onChangeText={(text) => this.setState({password: text})}/>
-                        <Image source={require('./img/login_delete.png')} style={styles.delete}/>
-                    </View>
+                    <ProgressDialog
+                        visible={this.state.loading}
+                        message="玩命加载中..."
+                        activityIndicatorSize="large"
+                    />
 
-                    <TouchableOpacity style={styles.login} onPress={this._loginFromApi.bind(this)}>
-                        <Text style={styles.loginText}>登录</Text>
-                    </TouchableOpacity>
-                </View>
+                </ImageBackground>
 
-                <ProgressDialog
-                    visible={this.state.loading}
-                    message="玩命加载中..."
-                    activityIndicatorSize="large"
-                />
-
-            </ImageBackground>
         );
     }
 
@@ -107,13 +110,16 @@ class LoginScreen extends Component<{}> {
                     },
                     expires: null
                 });
-                this.props.navigation.navigate('Main')
+                // this.props.navigation.navigate('Main')
+                this.setState({
+                    loggedIn: true,
+                });
             } else {
                 Alert.alert(responseJson.resultMsg)
             }
         } catch (error) {
             // console.error(error)
-            Alert.alert('登录异常'+error)
+            Alert.alert('登录异常' + error)
         } finally {
             this.setState({
                 loading: false
@@ -190,9 +196,20 @@ const styles = StyleSheet.create({
 
 });
 
-const Index = StackNavigator({
-    Login: {screen: LoginScreen},
-    Main: {screen: MainScreen},
-});
+// const Index = StackNavigator({
+//     Login: {screen: LoginScreen},
+//     Main: {screen: MainScreen},
+// });
 
-export default Index
+// const LoginNavigator = StackNavigator({
+//     Splash: {
+//         screen: SplashScreen,
+//         navigationOptions: {
+//             header: {
+//                 visible: false
+//             }
+//         }
+//     }
+// });
+
+// export default Index

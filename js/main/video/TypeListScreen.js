@@ -18,6 +18,8 @@ import {
 } from 'react-native';
 import {constants} from "../../network/constants";
 
+import TypeVideoScreen from './TypeVideoScreen'
+
 export default class App extends Component<{}> {
 
     constructor(props) {
@@ -71,6 +73,12 @@ export default class App extends Component<{}> {
         );
     };
 
+    _itemClick = (item, index) => {
+        this.props.navigation.navigate('TypeVideoScreen', {
+            // newsId: item.newsId,
+        })
+    };
+
     render() {
         return (
             <FlatList
@@ -78,7 +86,7 @@ export default class App extends Component<{}> {
                 data={this.state.data}
                 renderItem={({item, index}) => (
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this._itemClick.bind(this, item, index)}>
                         <View style={styles.container2}>
                             <Text style={styles.title}>{item.typeName}</Text>
 
