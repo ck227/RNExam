@@ -11,5 +11,7 @@ banner：https://github.com/leecade/react-native-swiper
 
 dialog：https://github.com/douglasjunior/react-native-simple-dialogs
 
+错误分析，应用统计 ：https://appcenter.ms/apps
+
 
 ENJOY
