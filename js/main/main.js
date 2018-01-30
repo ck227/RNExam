@@ -174,7 +174,7 @@ const App = StackNavigator({
     TypeVideoScreen: {
         screen: TypeVideoScreen,
         navigationOptions: {
-            headerTitle: '55555',
+            headerTitle: '视频分类',
         }
     },
 
@@ -184,5 +184,23 @@ const App = StackNavigator({
     },
     // headerMode: 'none',
 })
+
+
+const VideoNavi = StackNavigator({
+    TypeVideoScreen: {
+        screen: TypeVideoScreen,
+        navigationOptions: {
+            headerTitle: '视频分类',
+        }
+    },
+
+}, {
+    navigationOptions:{
+
+    },
+    // headerMode: 'none',
+})
+
+
 
 export default App

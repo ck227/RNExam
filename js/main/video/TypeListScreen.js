@@ -21,7 +21,10 @@ import { NavigationActions } from 'react-navigation' //第三方的
 
 import {constants} from "../../network/constants"; //常量
 
-import TypeVideoScreen from './TypeVideoScreen' //界面
+
+import VideoScreen from './VideoScreen'
+import TypeVideoScreen from './TypeVideoScreen'
+
 
 export default class App extends Component<{}> {
 
@@ -77,7 +80,8 @@ export default class App extends Component<{}> {
     };
 
     _itemClick = (item, index) => {
-        this.props.rootNavigation.navigation.navigate('TypeVideoScreen')
+        // this.props.navigation.navigate('TypeVideoScreen')
+        this.props.navigation.dispatch(navigateAction)
     };
 
     render() {
@@ -87,7 +91,7 @@ export default class App extends Component<{}> {
                 data={this.state.data}
                 renderItem={({item, index}) => (
 
-                    <TouchableOpacity onPress={this._itemClick.bind(this, item, index)}>
+                    <TouchableOpacity  onPress={this._itemClick.bind(this, item, index)}>
                         <View style={styles.container2}>
                             <Text style={styles.title}>{item.typeName}</Text>
 
@@ -119,13 +123,13 @@ export default class App extends Component<{}> {
 }
 
 
+
+
 const navigateAction = NavigationActions.navigate({
-
-    routeName: 'Profile',
-
+    routeName: 'TypeVideoScreen',
     params: {},
-
-    action: NavigationActions.navigate({ routeName: 'TypeVideoScreen'})
+    // navigate can have a nested navigate action that will be run inside the child router
+    // action: NavigationActions.navigate({ routeName: 'TypeVideoScreen'})
 })
 
 
@@ -162,3 +166,4 @@ const styles = StyleSheet.create({
         width: 40
     }
 });
+

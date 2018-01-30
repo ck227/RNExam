@@ -166,7 +166,7 @@ export default class HomeScreen extends Component<{}> {
                     data={this.state.news}
                     renderItem={({item, index}) => (
 
-                        <TouchableOpacity onPress={this._itemClick.bind(this, item, index)}>
+                        <TouchableOpacity key={_generateUUID()} onPress={this._itemClick.bind(this, item, index)}>
                             <View style={styles.item}>
 
                                 <View style={styles.container2}>

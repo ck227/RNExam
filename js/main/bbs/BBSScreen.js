@@ -61,13 +61,13 @@ export default class App extends Component<{}> {
             <View style={styles.container}>
                 <SectionList
                     renderSectionHeader={({section}) =>
-                        <View style={styles.parentView}>
+                        <View key={_generateUUID()} style={styles.parentView}>
                             <Text style={styles.parentText}>{section.title}
                             </Text>
                         </View>
                     }
                     renderItem={({item}) =>
-                        <View style={styles.childView}>
+                        <View key={_generateUUID()} style={styles.childView}>
                             <Image
                                 source={require('./img/ic_bbs_default.png')}
                                 style={styles.thumbnail}/>
@@ -75,7 +75,7 @@ export default class App extends Component<{}> {
                             </Text>
                         </View>
                     }
-
+                    keyExtractor={(item, index) => index}
                     ItemSeparatorComponent={this._separator}
                     sections={this.selectionList()}
                 />
@@ -85,18 +85,20 @@ export default class App extends Component<{}> {
 
     selectionList = () => {
         let datas = []
-        for (let b of this.state.data) {
-            let itemdata = {data: b.childs, title: b.cateName}
-            datas.push(itemdata)
+        if (this.state.data != null) {
+            for (let b of this.state.data) {
+                let itemdata = {data: b.childs, title: b.cateName}
+                datas.push(itemdata)
+            }
         }
         return datas
     }
 
     _separatorParent = () => {
-        return <View style={{height:10,backgroundColor:'#CED0CE'}}/>;
+        return <View style={{height: 10, backgroundColor: '#CED0CE'}}/>;
     }
     _separator = () => {
-        return <View style={{height:1,backgroundColor:'#CED0CE'}}/>;
+        return <View style={{height: 1, backgroundColor: '#CED0CE'}}/>;
     }
 
     _renderItemComponent = ({item}) => <ItemComponent item={item} onPress={this._pressItem}/>;
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         padding: 16,
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
     parentText: {
         fontSize: 16,
@@ -138,8 +140,18 @@ const styles = StyleSheet.create({
     childView: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor:'white',
-        padding:8
+        backgroundColor: 'white',
+        padding: 8
     }
 });
+
+function _generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
+};
 

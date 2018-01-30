@@ -1,5 +1,4 @@
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     Platform,
     StyleSheet,
@@ -8,27 +7,16 @@ import {
     Image,
 } from 'react-native';
 
-import {TabNavigator} from 'react-navigation';
+import {StackNavigator, TabNavigator} from 'react-navigation';
 import TypeListScreen from './TypeListScreen.js'
 
-export default class App extends Component<{}> {
+import TypeVideoScreen from './TypeVideoScreen' //界面
 
-    static navigationOptions = {
-
-    };
-
-    render() {
-        return (
-            <MyApp screenProps={{ rootNavigation: this.props.navigation }} />
-        );
-    }
-}
-
-const TypeListScreen1 = () => (
-    <TypeListScreen type='1'/>
+const TypeListScreen1 = ({ navigation }) => (
+    <TypeListScreen type='1' navigation={navigation}/>
 );
-const TypeListScreen2 = () => (
-    <TypeListScreen type='2'/>
+const TypeListScreen2 = ({ navigation }) => (
+    <TypeListScreen type='2' navigation={navigation}/>
 );
 
 
@@ -56,8 +44,22 @@ const MyApp = TabNavigator({
 
         indicatorStyle: {
             height: 3,
-            backgroundColor : '#03A7FF'
+            backgroundColor: '#03A7FF'
         }
 
     },
 });
+
+const SimpleApp = StackNavigator({
+    VideoStack: {
+        screen: MyApp,
+    },
+    // TypeVideoScreen: {
+    //     screen: TypeVideoScreen
+    // },
+}, {
+    navigationOptions: {},
+    headerMode: 'none',
+})
+
+export default SimpleApp

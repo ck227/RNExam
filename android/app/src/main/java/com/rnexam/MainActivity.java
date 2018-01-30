@@ -8,8 +8,8 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //SplashScreen.show(this);  // 添加这一句
-        SplashScreen.show(this, false, R.style.SplashScreenTheme);
+        SplashScreen.show(this);  // 添加这一句
+        //SplashScreen.show(this, false, R.style.SplashScreenTheme);
         super.onCreate(savedInstanceState);
     }
 
