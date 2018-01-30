@@ -161,6 +161,19 @@ const styles = StyleSheet.create({
 });
 
 
+const VideoNavi = StackNavigator({
+    TypeVideoScreen: {
+        screen: TypeVideoScreen,
+        navigationOptions: {
+            headerTitle: '视频分类',
+        }
+    },
+
+}, {
+    navigationOptions: {},
+    headerMode: 'none',
+})
+
 const App = StackNavigator({
     MainNavigator: {
         screen: TabNavigator1,
@@ -171,36 +184,15 @@ const App = StackNavigator({
             headerTitle: '详情',
         }
     },
-    TypeVideoScreen: {
-        screen: TypeVideoScreen,
-        navigationOptions: {
-            headerTitle: '视频分类',
-        }
+    VideoNavi: {
+        screen: VideoNavi,
+
     },
 
 }, {
-    navigationOptions:{
-
-    },
+    navigationOptions: {},
     // headerMode: 'none',
 })
-
-
-const VideoNavi = StackNavigator({
-    TypeVideoScreen: {
-        screen: TypeVideoScreen,
-        navigationOptions: {
-            headerTitle: '视频分类',
-        }
-    },
-
-}, {
-    navigationOptions:{
-
-    },
-    // headerMode: 'none',
-})
-
 
 
 export default App

@@ -126,10 +126,10 @@ export default class App extends Component<{}> {
 
 
 const navigateAction = NavigationActions.navigate({
-    routeName: 'TypeVideoScreen',
+    routeName: 'VideoNavi',
     params: {},
     // navigate can have a nested navigate action that will be run inside the child router
-    // action: NavigationActions.navigate({ routeName: 'TypeVideoScreen'})
+    action: NavigationActions.navigate({ routeName: 'TypeVideoScreen'})
 })
 
 
