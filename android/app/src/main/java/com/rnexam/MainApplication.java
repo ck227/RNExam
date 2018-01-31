@@ -3,6 +3,7 @@ package com.rnexam;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.brentvatne.react.ReactVideoPackage;
 import com.microsoft.appcenter.reactnative.push.AppCenterReactNativePushPackage;
 import com.microsoft.appcenter.reactnative.crashes.AppCenterReactNativeCrashesPackage;
 import com.microsoft.appcenter.reactnative.analytics.AppCenterReactNativeAnalyticsPackage;
@@ -28,6 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactVideoPackage(),
             new AppCenterReactNativePushPackage(MainApplication.this),
             new AppCenterReactNativeCrashesPackage(MainApplication.this, getResources().getString(R.string.appcenterCrashes_whenToSendCrashes)),
             new AppCenterReactNativeAnalyticsPackage(MainApplication.this, getResources().getString(R.string.appcenterAnalytics_whenToEnableAnalytics)),

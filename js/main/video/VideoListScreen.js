@@ -15,6 +15,8 @@ import {
 
 import {constants} from "../../network/constants";
 
+import VideoPlayScreen from "./VideoPlayScreen"
+
 
 export default class VideoListScreen extends Component<{}> {
 
@@ -25,6 +27,8 @@ export default class VideoListScreen extends Component<{}> {
             page: 1,
             refreshing: false,
             loading: false,
+
+            path: '',
 
             userId: '',
             userToken: '',
@@ -101,14 +105,28 @@ export default class VideoListScreen extends Component<{}> {
     };
 
     _itemClick = (item) => {
-        // this.props.navigation.navigate('VideoTypeScreen', {
-        //     id: item.id,
-        //     pId: item.pId,
-        //     name: item.majorName,
-        //     type: item.type,
-        //     isBuy: item.isBuy || item.isFree
-        // })
+        this.getVideoPath(item.videoId)
     };
+
+
+    getVideoPath = (sourceId) => {
+        let url = `${constants.url}?service=course.video.source&userId=${this.state.userId}&userToken=${this.state.userToken}&sourceId=${sourceId}`
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    path: res.resultData.resourceUrl,
+                });
+
+                this.props.navigation.navigate('VideoPlayScreen', {
+                    path: this.state.path,
+                })
+
+            })
+            .catch(error => {
+
+            });
+    }
 
     render() {
         return (
