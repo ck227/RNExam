@@ -19,6 +19,7 @@ import MyScreen from './my/MyScreen'
 import HomeDetailScreen from './home/HomeDetailScreen'
 import TypeVideoScreen from './video/TypeVideoScreen'
 import VideoTypeScreen from './video/VideoTypeScreen'
+import VideoListScreen from './video/VideoListScreen'
 
 const TabNavigator1 = TabNavigator({
     Home: {
@@ -173,6 +174,12 @@ const VideoNavi = StackNavigator({
         screen: VideoTypeScreen,
         navigationOptions: {
             headerTitle: '视频分类2',
+        }
+    },
+    VideoListScreen: {
+        screen: VideoListScreen,
+        navigationOptions: {
+            headerTitle: '视频列表',
         }
     },
 

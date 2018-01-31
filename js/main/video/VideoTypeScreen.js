@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import {constants} from "../../network/constants";
 
+import VideoListScreen from "./VideoListScreen"
+
 
 export default class VideoTypeScreen extends Component<{}> {
 
@@ -68,13 +70,11 @@ export default class VideoTypeScreen extends Component<{}> {
     };
 
     _itemClick = (item) => {
-        // this.props.navigation.navigate('VideoTypeScreen', {
-        //     id: item.id,
-        //     pId: item.pId,
-        //     name: item.majorName,
-        //     type: item.type,
-        //     isBuy: item.isBuy || item.isFree
-        // })
+        this.props.navigation.navigate('VideoListScreen', {
+            id: item.majorId,
+            name: item.majorName,
+            isBuy: item.isFree || item.isBuy
+        })
     };
 
     render() {
