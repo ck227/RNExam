@@ -11,19 +11,24 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import {StackNavigator} from 'react-navigation';
+import {NavigationActions, StackNavigator} from 'react-navigation';
 import {constants} from "../../network/constants";
+
+import VideoTypeScreen from './VideoTypeScreen'
 
 
 export default class TypeVideoScreen extends Component<{}> {
 
     constructor(props) {
         super(props);
+
         this.state = {
             data: [],
             refreshing: false,
             userId: '',
             userToken: '',
+            id: '',
+            type: '',
 
         };
     }
@@ -45,6 +50,10 @@ export default class TypeVideoScreen extends Component<{}> {
 
     getData = () => {
         const {params} = this.props.navigation.state;
+        this.setState({
+            id: params.id,
+            type: params.type,
+        });
         let url = `${constants.url}?service=course.major.list&userId=${this.state.userId}&userToken=${this.state.userToken}&cataLogType=${params.id}&unityType=${params.type}`
         fetch(url)
             .then(res => res.json())
@@ -70,6 +79,16 @@ export default class TypeVideoScreen extends Component<{}> {
         );
     };
 
+    _itemClick = (item) => {
+        this.props.navigation.navigate('VideoTypeScreen', {
+            id: this.state.id,
+            pId: item.majorId,
+            name: item.majorName,
+            type: this.state.type,
+            // isBuy: item.isBuy || item.isFree
+        })
+    };
+
     render() {
         return (
             <FlatList
@@ -77,7 +96,7 @@ export default class TypeVideoScreen extends Component<{}> {
                 data={this.state.data}
                 renderItem={({item, index}) => (
 
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this._itemClick.bind(this, item)}>
                         <View style={styles.container2}>
                             <Text style={styles.title}>{item.majorName}</Text>
 

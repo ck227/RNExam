@@ -5,30 +5,118 @@ import {
     Platform,
     StyleSheet,
     Text,
-    View
+    View,
+    Image,
+    FlatList,
+    TouchableOpacity,
 } from 'react-native';
+import {constants} from "../../network/constants";
 
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-    android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-export default class App extends Component<{}> {
+export default class VideoTypeScreen extends Component<{}> {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+            refreshing: false,
+            userId: '',
+            userToken: '',
+        };
+    }
+
+    componentDidMount() {
+        global.storage.load({
+            key: 'loginState',
+        }).then(ret => {
+            let [x, y] = [ret.userId, ret.userToken]
+            this.setState({
+                userId: x,
+                userToken: y,
+            });
+            this.getData()
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+
+    getData = () => {
+        const {params} = this.props.navigation.state;
+        let url = `${constants.url}?service=course.major.list&userId=${this.state.userId}&userToken=${this.state.userToken}&cataLogType=${params.id}&unityType=${params.type}&pId=${params.pId}`
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    data: res.resultData,
+                    refreshing: false,
+                });
+            })
+            .catch(error => {
+                this.setState({error, refreshing: false});
+            });
+    }
+
+    handleRefresh = () => {
+        this.setState(
+            {
+                refreshing: true
+            },
+            () => {
+                this.getData();
+            }
+        );
+    };
+
+    _itemClick = (item) => {
+        // this.props.navigation.navigate('VideoTypeScreen', {
+        //     id: item.id,
+        //     pId: item.pId,
+        //     name: item.majorName,
+        //     type: item.type,
+        //     isBuy: item.isBuy || item.isFree
+        // })
+    };
+
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native!
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit App.js
-                </Text>
-                <Text style={styles.instructions}>
-                    {instructions}
-                </Text>
-            </View>
+            <FlatList
+                style={styles.container}
+                data={this.state.data}
+                renderItem={({item}) => (
+
+                    <TouchableOpacity onPress={this._itemClick.bind(this, item)}>
+                        <View style={styles.container2}>
+                            <Text style={styles.title}>{item.majorName}</Text>
+
+                            <View style={styles.iconParent}>
+                                {
+                                    item.isBuy || item.isFree ? <Image
+                                        source={require('./img/ic_bought.png')}
+                                        style={styles.icon}
+                                    /> : <Image
+                                        source={require('./img/ic_unbought.png')}
+                                        style={styles.icon}
+                                    />
+                                }
+                            </View>
+
+                        </View>
+                    </TouchableOpacity>
+                )}
+                ItemSeparatorComponent={() =>
+                    <View style={{flex: 1, flexDirection: 'row',}}>
+                        <View
+                            style={{
+                                height: 1,
+                                backgroundColor: "#CED0CE",
+                            }}
+                        />
+                    </View>
+                }
+                keyExtractor={(item, index) => index}
+                onRefresh={this.handleRefresh}
+                refreshing={this.state.refreshing}
+            />
         );
     }
 }
@@ -36,18 +124,33 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    item: {
+        flex: 1,
+        flexDirection: 'column',
     },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
+    container2: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        backgroundColor: '#FFFFFF',
     },
+    title: {
+        color: '#666666',
+        fontSize: 14,
+        textAlign: 'left',
+        marginTop: 16,
+        marginBottom: 16,
+        marginLeft: 14
+    },
+    iconParent: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    icon: {
+        height: 40,
+        width: 40
+    }
+
 });
