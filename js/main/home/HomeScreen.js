@@ -43,8 +43,8 @@ export default class HomeScreen extends Component<{}> {
         this.getNews()
     }
 
-    getBanner = (userId, uerToken) => {
-        var url = `${constants.url}?service=advertised.list&userId=${userId}&userToken=${uerToken}`
+    getBanner = (userId, userToken) => {
+        var url = `${constants.url}?service=advertised.list&userId=${userId}&userToken=${userToken}`
         fetch(url)
             .then(res => res.json())
             .then(res => {

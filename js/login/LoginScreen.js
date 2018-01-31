@@ -33,7 +33,7 @@ export default class LoginScreen extends Component<{}> {
     constructor(props) {
         super(props);
         this.state = {
-            account: '18507104252',
+            account: '18507104251',
             password: '123456',
             loading: false,
             loggedIn: false
@@ -54,7 +54,7 @@ export default class LoginScreen extends Component<{}> {
                             <Image source={require('./img/login_phone.png')} style={styles.phone}/>
                             <TextInput style={styles.inputText}
                                        placeholder={'请输入手机号'}
-                                       defaultValue={'18507104252'}
+                                       defaultValue={'18507104251'}
                                        underlineColorAndroid={'transparent'}
                                        onChangeText={(text) => this.setState({account: text})}/>
                             <Image source={require('./img/login_delete.png')} style={styles.delete}/>

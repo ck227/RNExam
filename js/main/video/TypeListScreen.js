@@ -17,7 +17,7 @@ import {
     Image,
 } from 'react-native';
 
-import { NavigationActions } from 'react-navigation' //第三方的
+import {NavigationActions} from 'react-navigation' //第三方的
 
 import {constants} from "../../network/constants"; //常量
 
@@ -81,7 +81,11 @@ export default class App extends Component<{}> {
 
     _itemClick = (item, index) => {
         // this.props.navigation.navigate('TypeVideoScreen')
-        this.props.navigation.dispatch(navigateAction)
+        this.props.navigation.dispatch(NavigationActions.navigate({
+            routeName: 'VideoNavi',
+            params: {id: item.id, type: this.props.type}, //这里的值没有传过去
+            action: NavigationActions.navigate({routeName: 'TypeVideoScreen',params: {id: item.id, type: this.props.type}}) //这里生效的
+        }))
     };
 
     render() {
@@ -91,7 +95,7 @@ export default class App extends Component<{}> {
                 data={this.state.data}
                 renderItem={({item, index}) => (
 
-                    <TouchableOpacity  onPress={this._itemClick.bind(this, item, index)}>
+                    <TouchableOpacity onPress={this._itemClick.bind(this, item, index)}>
                         <View style={styles.container2}>
                             <Text style={styles.title}>{item.typeName}</Text>
 
@@ -123,15 +127,12 @@ export default class App extends Component<{}> {
 }
 
 
-
-
 const navigateAction = NavigationActions.navigate({
     routeName: 'VideoNavi',
     params: {},
     // navigate can have a nested navigate action that will be run inside the child router
-    action: NavigationActions.navigate({ routeName: 'TypeVideoScreen'})
+    action: NavigationActions.navigate({routeName: 'TypeVideoScreen'})
 })
-
 
 
 const styles = StyleSheet.create({
