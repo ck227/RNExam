@@ -8,8 +8,6 @@ import {
     View
 } from 'react-native';
 
-
-
 import Video from 'react-native-video';
 
 export default class App extends Component<{}> {
@@ -20,8 +18,9 @@ export default class App extends Component<{}> {
 
 
     render() {
+
         const {params} = this.props.navigation.state;
-        return (
+        return  (
             <View style={styles.container}>
                 <Video
                     repeat
