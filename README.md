@@ -18,4 +18,6 @@ Video：https://github.com/react-native-community/react-native-video
 错误分析，应用统计 ：https://appcenter.ms/apps
 
 
+以后界面用这个，很强大 ：https://github.com/GeekyAnts/NativeBase
+
 ENJOY
