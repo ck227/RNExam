@@ -16,7 +16,13 @@ import VideoScreen from './video/VideoScreen'
 import BBSScreen from './bbs/BBSScreen'
 import MyScreen from './my/MyScreen'
 
+//首页的
 import HomeDetailScreen from './home/HomeDetailScreen'
+
+//练习的
+import PractiseListScreen from './practise/PractiseListScreen'
+
+//视频的
 import TypeVideoScreen from './video/TypeVideoScreen'
 import VideoTypeScreen from './video/VideoTypeScreen'
 import VideoListScreen from './video/VideoListScreen'
@@ -164,6 +170,20 @@ const styles = StyleSheet.create({
 });
 
 
+const PractiseNavi = StackNavigator({
+    PractiseListScreen: {
+        screen: PractiseListScreen,
+        navigationOptions: {
+            headerTitle: '练习分类',
+        }
+    },
+
+},{
+    navigationOptions: {},
+    headerMode: 'none',
+})
+
+
 const VideoNavi = StackNavigator({
     TypeVideoScreen: {
         screen: TypeVideoScreen,
@@ -204,6 +224,9 @@ const App = StackNavigator({
         navigationOptions: {
             headerTitle: '详情',
         }
+    },
+    PractiseNavi:{
+        screen: PractiseNavi,
     },
     VideoNavi: {
         screen: VideoNavi,

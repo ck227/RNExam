@@ -1,9 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
+"use strict";
 
 import React, {Component} from 'react';
 import {
@@ -13,14 +8,13 @@ import {
     View,
     FlatList,
     TouchableOpacity,
-    Image,
 } from 'react-native';
 import {constants} from "../../network/constants";
 import {NavigationActions} from "react-navigation";
 
-import PractiseListScreen from './PractiseListScreen'
+import * as Progress from 'react-native-progress';
 
-export default class App extends Component<{}> {
+export default class PractiseListScreen extends Component<{}> {
 
     constructor(props) {
         super(props);
@@ -48,7 +42,8 @@ export default class App extends Component<{}> {
     }
 
     getData = () => {
-        let url = `${constants.url}?service=question.major.list&userId=${this.state.userId}&userToken=${this.state.userToken}&examType=1&unityType=${this.props.type}`
+        const {params} = this.props.navigation.state;
+        let url = `${constants.url}?service=question.major.list&userId=${this.state.userId}&userToken=${this.state.userToken}&examType=1&unityType=${params.type}&pId=${params.id}`
         fetch(url)
             .then(res => res.json())
             .then(res => {
@@ -74,11 +69,11 @@ export default class App extends Component<{}> {
     };
 
     _itemClick = (item) => {
-        this.props.navigation.dispatch(NavigationActions.navigate({
-            routeName: 'PractiseNavi',
-            params: {},//这里是传到PractiseNavi的参数
-            action: NavigationActions.navigate({routeName: 'PractiseListScreen', params: {id: item.majorId, type: this.props.type}}) //这里是传到子目录的参数
-        }))
+        // this.props.navigation.dispatch(NavigationActions.navigate({
+        //     routeName: 'PractiseNavi',
+        //     params: {},//这里是传到PractiseNavi的参数
+        //     action: NavigationActions.navigate({routeName: 'PractiseListScreen', params: {id: item.id, type: this.props.type}}) //这里是传到子目录的参数
+        // }))
     };
 
     render() {
@@ -86,24 +81,20 @@ export default class App extends Component<{}> {
             <FlatList
                 style={styles.container}
                 data={this.state.data}
-                renderItem={({item, index}) => (
-
+                renderItem={({item}) => (
                     <TouchableOpacity onPress={this._itemClick.bind(this, item)}>
-                        <View style={styles.container2}>
+                        <View style={styles.item}>
                             <Text style={styles.title}>{item.majorName}</Text>
 
-                            <View style={styles.iconParent}>
-                                {
-                                    item.isBuy || item.isFree ? <Image
-                                        source={require('./img/ic_bought.png')}
-                                        style={styles.icon}
-                                    /> : <Image
-                                        source={require('./img/ic_unbought.png')}
-                                        style={styles.icon}
-                                    />
-                                }
-                            </View>
+                            <View style={{flexDirection:'row', marginBottom: 8,alignItems:'center',marginLeft: 14,}}>
+                                <View>
+                                    <Progress.Bar style={styles.bar} width={250} borderWidth={0}
+                                                  color={'#2CA7F5'} unfilledColor={'#B3B9C9'}
+                                                  progress={item.historyNo / item.questionCount}/>
+                                </View>
 
+                                <Text style={{marginLeft: 8}} >{item.historyNo}/{item.questionCount}</Text>
+                            </View>
                         </View>
                     </TouchableOpacity>
                 )}
@@ -118,15 +109,9 @@ export default class App extends Component<{}> {
                     </View>
                 }
                 keyExtractor={(item, index) => index}
-                //ListHeaderComponent={this.renderHeader}
-                //ListFooterComponent={this.renderFooter}
                 onRefresh={this.handleRefresh}
                 refreshing={this.state.refreshing}
-                //onEndReached={this.handleLoadMore}
-                //onEndReachedThreshold={15}
             />
-
-
         );
     }
 }
@@ -137,31 +122,17 @@ const styles = StyleSheet.create({
     },
     item: {
         flex: 1,
-        flexDirection: 'column',
-    },
-    container2: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
         backgroundColor: '#FFFFFF',
     },
     title: {
         color: '#666666',
         fontSize: 14,
         textAlign: 'left',
-        marginTop: 16,
-        marginBottom: 16,
+        marginTop: 12,
+        marginBottom: 8,
         marginLeft: 14
     },
-    iconParent: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-    },
-    icon: {
-        height: 40,
-        width: 40
+    bar: {
+
     }
 });
-
-
