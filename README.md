@@ -13,6 +13,8 @@ dialog：https://github.com/douglasjunior/react-native-simple-dialogs
 
 Video：https://github.com/react-native-community/react-native-video
 
+进度条：https://github.com/oblador/react-native-progress
+
 错误分析，应用统计 ：https://appcenter.ms/apps
 
 
