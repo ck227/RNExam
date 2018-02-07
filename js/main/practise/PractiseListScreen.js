@@ -12,6 +12,8 @@ import {
 import {constants} from "../../network/constants";
 import {NavigationActions} from "react-navigation";
 
+import DoPractiseScreen from './DoPractiseScreen'
+
 import * as Progress from 'react-native-progress';
 
 export default class PractiseListScreen extends Component<{}> {
@@ -69,11 +71,10 @@ export default class PractiseListScreen extends Component<{}> {
     };
 
     _itemClick = (item) => {
-        // this.props.navigation.dispatch(NavigationActions.navigate({
-        //     routeName: 'PractiseNavi',
-        //     params: {},//这里是传到PractiseNavi的参数
-        //     action: NavigationActions.navigate({routeName: 'PractiseListScreen', params: {id: item.id, type: this.props.type}}) //这里是传到子目录的参数
-        // }))
+        this.props.navigation.navigate('DoPractiseScreen', {
+            id: item.majorId,
+            historyNo: item.historyNo,
+        })
     };
 
     render() {

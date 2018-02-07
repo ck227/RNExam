@@ -21,6 +21,7 @@ import HomeDetailScreen from './home/HomeDetailScreen'
 
 //练习的
 import PractiseListScreen from './practise/PractiseListScreen'
+import DoPractiseScreen from './practise/DoPractiseScreen'
 
 //视频的
 import TypeVideoScreen from './video/TypeVideoScreen'
@@ -177,8 +178,14 @@ const PractiseNavi = StackNavigator({
             headerTitle: '练习分类',
         }
     },
+    DoPractiseScreen: {
+        screen: DoPractiseScreen,
+        navigationOptions: {
+            headerTitle: '练习',
+        }
+    },
 
-},{
+}, {
     navigationOptions: {},
     headerMode: 'none',
 })
@@ -225,7 +232,7 @@ const App = StackNavigator({
             headerTitle: '详情',
         }
     },
-    PractiseNavi:{
+    PractiseNavi: {
         screen: PractiseNavi,
     },
     VideoNavi: {

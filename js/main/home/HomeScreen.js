@@ -16,6 +16,8 @@ import {
 import Swiper from 'react-native-swiper';
 import {constants} from "../../network/constants";
 
+
+
 const {width} = Dimensions.get('window')
 
 export default class HomeScreen extends Component<{}> {
