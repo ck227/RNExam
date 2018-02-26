@@ -69,38 +69,8 @@ export default class DoPractiseScreen extends Component<{}> {
                 loop={false}>
                 {this.state.data.map((question,index) => {
                     // let answers = question.answers
-                    return <View key={index} style={styles.slide}>
-                        <View style={{flexDirection: 'row', padding: 12, alignItems: 'flex-start'}}>
-                            <Text style={{
-                                color: '#2CA7F5',
-                                borderColor: '#2CA7F5',
-                                borderWidth: 1,
-                                padding: 4,
-                            }}>{question.type.startsWith('SINGEL_TRUE') ? '单选题' : '多选题'}</Text>
-                            <View style={{flex: 1, marginLeft: 4}}>
-                                <Text>{question.questionTitle}</Text>
-                                {question.answers.map((answer, index) => {
-                                    return <View key={index} style={{
-                                        flexDirection: 'row',
-                                        paddingTop: 12,
-                                        paddingBottom: 6,
-                                        alignItems: 'center'
-                                    }}>
-                                        <View style={{justifyContent: 'center', alignItems: 'center',borderColor: 'gray',
-                                            borderWidth: 1,
-                                            height: 40,
-                                            width: 40,
-                                            borderRadius: 20}}>
-                                            <Text style={{}}>{_getIndex(index)}</Text>
-                                        </View>
-                                        <Text style={{marginLeft: 6}}>{answer.answerContent}</Text>
-                                    </View>
-                                })}
-                            </View>
-
-                        </View>
-
-                    </View>
+                    let tmp = question
+                    return <Question model = tmp/>
                 })}
 
 
