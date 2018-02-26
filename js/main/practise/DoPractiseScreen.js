@@ -2,27 +2,16 @@
 
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
-    Alert,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 
 import {constants} from "../../network/constants";
 
-
-const renderPagination = (index, total, context) => {
-    return (
-        <View style={styles.paginationStyle}>
-            <Text style={{color: 'red'}}>
-                <Text style={styles.paginationText}>{index + 1}</Text>/{total}
-            </Text>
-        </View>
-    )
-}
+import Question from "./QuestionScreen"
 
 
 export default class DoPractiseScreen extends Component<{}> {
@@ -73,45 +62,65 @@ export default class DoPractiseScreen extends Component<{}> {
 
     render() {
         return (
-            <View style={{flex: 1}}>
-                <View style={{flex: 1, height: 300}}>
-                    <Swiper
-                        style={styles.wrapper}
-                        renderPagination={renderPagination}
-                        loop={false}>
-                        {this.state.data.map((question) => {
-                            return <View key={_generateUUID()} style={styles.slide1}
-                                         title={<Text numberOfLines={1}>Aussie tourist dies at Bali hotel</Text>}>
-                                <Text>{question.questionTitle}</Text>
-                            </View>
-                        })}
 
-                    </Swiper>
-                </View>
-            </View>
+            <Swiper
+                style={styles.wrapper}
+                renderPagination={renderPagination}
+                loop={false}>
+                {this.state.data.map((question,index) => {
+                    // let answers = question.answers
+                    return <View key={index} style={styles.slide}>
+                        <View style={{flexDirection: 'row', padding: 12, alignItems: 'flex-start'}}>
+                            <Text style={{
+                                color: '#2CA7F5',
+                                borderColor: '#2CA7F5',
+                                borderWidth: 1,
+                                padding: 4,
+                            }}>{question.type.startsWith('SINGEL_TRUE') ? '单选题' : '多选题'}</Text>
+                            <View style={{flex: 1, marginLeft: 4}}>
+                                <Text>{question.questionTitle}</Text>
+                                {question.answers.map((answer, index) => {
+                                    return <View key={index} style={{
+                                        flexDirection: 'row',
+                                        paddingTop: 12,
+                                        paddingBottom: 6,
+                                        alignItems: 'center'
+                                    }}>
+                                        <View style={{justifyContent: 'center', alignItems: 'center',borderColor: 'gray',
+                                            borderWidth: 1,
+                                            height: 40,
+                                            width: 40,
+                                            borderRadius: 20}}>
+                                            <Text style={{}}>{_getIndex(index)}</Text>
+                                        </View>
+                                        <Text style={{marginLeft: 6}}>{answer.answerContent}</Text>
+                                    </View>
+                                })}
+                            </View>
+
+                        </View>
+
+                    </View>
+                })}
+
+
+            </Swiper>
 
         );
     }
 }
 
 const styles = StyleSheet.create({
+    wrapper: {},
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
+        flex: 1
     },
-    wrapper: {
-        height: 200
-    },
-    slide1: {
+    slide: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#9DD6EB',
+        backgroundColor: '#F3F4F8',
     },
     text: {
-        color: '#fff',
+        color: 'red',
         fontSize: 30,
         fontWeight: 'bold',
     },
@@ -121,14 +130,53 @@ const styles = StyleSheet.create({
         right: 10
     },
     paginationText: {
-        color: 'white',
+        color: 'red',
         fontSize: 20
     }
-    
+
 
 });
 
+const renderPagination = (index, total, context) => {
+    return (
+        <View style={styles.paginationStyle}>
+            <Text style={{color: 'black'}}>
+                <Text style={styles.paginationText}>{index + 1}</Text>/{total}
+            </Text>
+        </View>
+    )
+}
 
+function _getIndex(index) {
+    switch (index) {
+        case 0:
+            return 'A';
+        case 1:
+            return 'B';
+        case 2:
+            return 'C';
+        case 3:
+            return 'D';
+        case 4:
+            return 'E';
+        case 5:
+            return 'F';
+        case 6:
+            return 'G';
+        case 7:
+            return 'H';
+        case 8:
+            return 'I';
+        case 9:
+            return 'J';
+        case 10:
+            return 'K';
+
+    }
+}
+
+
+/*
 function _generateUUID() {
     var d = new Date().getTime();
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -138,3 +186,5 @@ function _generateUUID() {
     });
     return uuid;
 };
+*/
+
