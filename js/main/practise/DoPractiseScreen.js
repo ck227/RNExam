@@ -62,7 +62,6 @@ export default class DoPractiseScreen extends Component<{}> {
 
     render() {
         return (
-
             <Swiper
                 style={styles.wrapper}
                 renderPagination={renderPagination}
@@ -70,12 +69,9 @@ export default class DoPractiseScreen extends Component<{}> {
                 {this.state.data.map((question,index) => {
                     // let answers = question.answers
                     let tmp = question
-                    return <Question model = tmp/>
+                    return <Question data = {tmp} key = {index}/>
                 })}
-
-
             </Swiper>
-
         );
     }
 }
@@ -117,44 +113,4 @@ const renderPagination = (index, total, context) => {
     )
 }
 
-function _getIndex(index) {
-    switch (index) {
-        case 0:
-            return 'A';
-        case 1:
-            return 'B';
-        case 2:
-            return 'C';
-        case 3:
-            return 'D';
-        case 4:
-            return 'E';
-        case 5:
-            return 'F';
-        case 6:
-            return 'G';
-        case 7:
-            return 'H';
-        case 8:
-            return 'I';
-        case 9:
-            return 'J';
-        case 10:
-            return 'K';
-
-    }
-}
-
-
-/*
-function _generateUUID() {
-    var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
-    return uuid;
-};
-*/
 
