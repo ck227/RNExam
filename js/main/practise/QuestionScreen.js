@@ -6,11 +6,12 @@ import {
     Text,
     View,
     Alert,
+    ScrollView,
     TouchableWithoutFeedback, TouchableOpacity,
 } from 'react-native';
 
 /**
- * 选项可以选择，单选题选择之后直接出结果
+ * 选项可以选择，单选题选择之后直接出结果(好了)
  *
  *
  */
@@ -41,10 +42,6 @@ export default class App extends Component<{}> {
         this.state.status.forEach((element, index2) => {
             if (index2 === index) {
                 this.state.status[index2] = 1
-                // let ss = this.state.status
-                // this.setState({
-                //     status: ss,
-                // });
             } else {
                 this.state.status[index2] = 0
             }
@@ -81,8 +78,14 @@ export default class App extends Component<{}> {
     _renderAnalytics = () => {
         if (this.state.showAnalytics) {
             return (
-                <View>
-                    <Text style={{flex: 1}}>正确答案:{_getRightAnswer(this.state.question)}</Text>
+                <View style={{justifyContent: 'flex-start', marginLeft: 8, marginRight: 8}}>
+                    <Text style={{marginTop: 20}}>正确答案: {_getRightAnswer(this.state.question)}</Text>
+                    <View style={{flexDirection: 'row', alignItems: 'center',justifyContent:'space-between'}}>
+                        <View style={{height: 1, width: 120, backgroundColor: 'gray'}}></View>
+                        <Text >试题解析</Text>
+                        <View style={{height: 1, width: 120, backgroundColor: 'gray'}}></View>
+                    </View>
+                    <Text style={{marginTop: 10}}>{this.state.question.analytics}</Text>
                 </View>
             )
         } else {
@@ -92,10 +95,7 @@ export default class App extends Component<{}> {
 
     render() {
         let question = this.props.data
-        // this.setState({
-        //     status: new Array(question.answers.length).fill(0)
-        // });
-        return <View style={styles.slide}>
+        return <ScrollView contentContainerStyle={styles.contentContainer}><View style={styles.slide}>
             <View style={{flexDirection: 'row', padding: 12, alignItems: 'flex-start'}}>
                 <Text style={{
                     color: '#2CA7F5',
@@ -150,7 +150,7 @@ export default class App extends Component<{}> {
                 <Text style={{flex: 1}}>正确答案:{_getRightAnswer(question)}</Text>
             </View>*/}
 
-        </View>;
+        </View></ScrollView>;
     }
 
 
@@ -161,6 +161,9 @@ const styles = StyleSheet.create({
     wrapper: {},
     container: {
         flex: 1
+    },
+    contentContainer: {
+        flex: 1,
     },
     slide: {
         flex: 1,
@@ -272,6 +275,7 @@ function _getRightAnswer(question) {
 }
 
 //正确答案是0  蓝色 正确答案是1  蓝色，错误答案是0 蓝色 错误答案是1 红色
+
 function _btnClick(question, status) {
     let isRight = true
     question.answers.map((answer, index) => {

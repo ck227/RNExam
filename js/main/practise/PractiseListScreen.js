@@ -74,6 +74,7 @@ export default class PractiseListScreen extends Component<{}> {
         this.props.navigation.navigate('DoPractiseScreen', {
             id: item.majorId,
             historyNo: item.historyNo,
+            questionCount: item.questionCount,
         })
     };
 

@@ -14,6 +14,10 @@ import {constants} from "../../network/constants";
 import Question from "./QuestionScreen"
 
 
+/**
+ 做题进度
+ 拿下一题
+ */
 export default class DoPractiseScreen extends Component<{}> {
 
     constructor(props) {
@@ -23,10 +27,18 @@ export default class DoPractiseScreen extends Component<{}> {
             refreshing: false,
             userId: '',
             userToken: '',
+            historyNo: '',
+            questionCount: '',
+            currentNo: ''
         };
     }
 
     componentDidMount() {
+        const {params} = this.props.navigation.state
+        this.setState({
+            historyNo: params.historyNo,
+            questionCount: params.questionCount
+        });
         global.storage.load({
             key: 'loginState',
         }).then(ret => {
@@ -62,22 +74,40 @@ export default class DoPractiseScreen extends Component<{}> {
 
     render() {
         return (
-            <Swiper
-                style={styles.wrapper}
-                renderPagination={renderPagination}
-                loop={false}>
-                {this.state.data.map((question,index) => {
-                    // let answers = question.answers
-                    let tmp = question
-                    return <Question data = {tmp} key = {index}/>
-                })}
-            </Swiper>
+            <View style={{flex: 1, flexDirection: 'column-reverse'}}>
+                <View style={{flexDirection: 'row-reverse', padding: 8}}>
+                    <Text>{this.state.historyNo}/{this.state.questionCount}</Text>
+                    <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start'}}>
+                        <Text>收藏</Text>
+                    </View>
+                </View>
+
+                <Swiper
+                    style={styles.wrapper}
+                    showsPagination={false}
+                    loop={false}>
+                    {this.state.data.map((question, index) => {
+                        // let answers = question.answers
+                        let tmp = question
+                        return <Question data={tmp} key={index} returnData={this._se.bind(this)}/>
+
+                    })}
+                </Swiper>
+            </View>
         );
     }
 }
 
+function _setCurrentNo(currentNo) {
+    this.setState({
+        currentNo: currentNo
+    });
+}
+
 const styles = StyleSheet.create({
-    wrapper: {},
+    wrapper: {
+        flex: 1
+    },
     container: {
         flex: 1
     },
